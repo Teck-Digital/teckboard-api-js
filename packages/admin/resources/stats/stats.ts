@@ -1,4 +1,4 @@
-import Resource from '../../../core/resource';
+import Resource from '@teckboard-api/core/resource';
 import admin from '../..';
 import UserStats from './interfaces/UserStats';
 export default class Stats extends Resource<admin> {

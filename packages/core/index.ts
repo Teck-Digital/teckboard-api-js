@@ -11,3 +11,5 @@ export default class Api<T extends ApiInterface> {
         this.api = new api(config);
     }
 }
+export { ApiInterface };
+export { default as Resource } from './resource';

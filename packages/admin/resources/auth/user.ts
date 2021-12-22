@@ -1,7 +1,7 @@
-import Resource from '../../../core/resource';
-import JsonResponse from '../../../v1/endpoint/JsonResponse';
-import admin from '../..';
+import JsonResponse from '@teckboard-api/v1/endpoint/JsonResponse';
+import { Resource } from '@teckboard-api/core';
 import AuthUser from './interfaces/AuthUser';
+import admin from '../..';
 export default class User extends Resource<admin> {
     private uri = '/user';
 

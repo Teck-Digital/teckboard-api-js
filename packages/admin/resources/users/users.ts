@@ -1,9 +1,9 @@
-import PaginationResource from '../../../v1/endpoint/pagination/PaginationResource';
+import PaginationResource from '@teckboard-api/v1/endpoint/pagination/PaginationResource';
 import User from './interfaces/User';
-import Resource from '../../../core/resource';
+import Resource from '@teckboard-api/core/resource';
 import admin from '../..';
-import PaginationResponse from '../../../v1/endpoint/pagination/PaginationResponse';
-import JsonResponse from '../../../v1/endpoint/JsonResponse';
+import PaginationResponse from '@teckboard-api/v1/endpoint/pagination/PaginationResponse';
+import JsonResponse from '@teckboard-api/v1/endpoint/JsonResponse';
 export default class Users
     extends Resource<admin>
     implements PaginationResource<User>

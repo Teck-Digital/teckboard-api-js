@@ -1,4 +1,4 @@
-import Board from '../../../../v1/resources/boards/interfaces/Board';
+import Board from '@teckboard-api/v1/resources/boards/interfaces/Board';
 import Content from '../../contents/interfaces/Content';
 import User from '../../users/interfaces/User';
 

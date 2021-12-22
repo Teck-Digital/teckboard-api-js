@@ -1,8 +1,8 @@
-import PaginationResource from '../../../v1/endpoint/pagination/PaginationResource';
-import PaginationResponse from '../../../v1/endpoint/pagination/PaginationResponse';
-import { Board } from '../../../v1/resources/boards';
-import JsonResponse from '../../../v1/endpoint/JsonResponse';
-import Resource from '../../../core/resource';
+import PaginationResource from '@teckboard-api/v1/endpoint/pagination/PaginationResource';
+import PaginationResponse from '@teckboard-api/v1/endpoint/pagination/PaginationResponse';
+import { Board } from '@teckboard-api/v1/resources/boards';
+import JsonResponse from '@teckboard-api/v1/endpoint/JsonResponse';
+import Resource from '@teckboard-api/core/resource';
 import admin from '../..';
 export default class Boards
     extends Resource<admin>

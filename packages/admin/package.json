@@ -6,12 +6,14 @@
     "files": [
         "dist/**/*"
     ],
-    "repository": "https://github.com/teckdigital/teckboard-api-js",
+    "repository": "https://github.com/teck-digital/teckboard-api-js",
     "author": "ItsZiroy <yannihahn@t-online.de>",
     "license": "MIT",
     "private": false,
     "dependencies": {
-        "@teckboard-api/core": "^1.0.0"
+        "@teckboard-api/core": "^1.0.0",
+        "@teckboard-api/v1": "^1.0.0",
+        "axios": "^0.24.0"
     },
     "scripts": {
         "lint": "yarn eslint src/**"

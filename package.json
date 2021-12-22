@@ -1,11 +1,10 @@
 {
     "main": "build/index.js",
-    "repository": "https://github.com/teckdigital/teckboard-api",
+    "repository": "https://github.com/teck-digital/teckboard-api-js",
     "author": "ItsZiroy <yannihahn@t-online.de>",
     "license": "MIT",
     "private": false,
     "devDependencies": {
-        "@types/node": "^17.0.2",
         "@typescript-eslint/eslint-plugin": "^4.21.0",
         "@typescript-eslint/parser": "^4.21.0",
         "eslint": "^7.24.0",

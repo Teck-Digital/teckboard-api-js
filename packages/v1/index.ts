@@ -39,3 +39,7 @@ export default class v1 implements ApiInterface {
         return v1._instance;
     }
 }
+
+export * from './resources/boards';
+export * from './resources/auth';
+export * from './resources/contents';

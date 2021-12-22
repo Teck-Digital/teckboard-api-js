@@ -1,7 +1,7 @@
-import JsonResponse from '../../../v1/endpoint/JsonResponse';
-import PaginationResource from '../../../v1/endpoint/pagination/PaginationResource';
-import PaginationResponse from '../../../v1/endpoint/pagination/PaginationResponse';
-import Resource from '../../../core/resource';
+import JsonResponse from '@teckboard-api/v1/endpoint/JsonResponse';
+import PaginationResource from '@teckboard-api/v1/endpoint/pagination/PaginationResource';
+import PaginationResponse from '@teckboard-api/v1/endpoint/pagination/PaginationResponse';
+import Resource from '@teckboard-api/core/resource';
 
 import Company from './interfaces/Company';
 import admin from '../..';
