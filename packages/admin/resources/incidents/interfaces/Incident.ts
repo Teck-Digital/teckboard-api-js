@@ -2,7 +2,7 @@ import Board from '@teckboard-api/v1/resources/boards/interfaces/Board';
 import Content from '../../contents/interfaces/Content';
 import User from '../../users/interfaces/User';
 
-export interface Incident {
+export default interface Incident {
     id: string;
     ticket_id: string;
     reportable: Board | Content;

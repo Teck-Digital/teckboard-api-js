@@ -1,8 +1,8 @@
-import { Incident } from './interfaces/Incident';
 import PaginationResource from '@teckboard-api/v1/endpoint/pagination/PaginationResource';
 import Resource from '@teckboard-api/core/resource';
 import admin from '../..';
 import PaginationResponse from '@teckboard-api/v1/endpoint/pagination/PaginationResponse';
+import { Incident } from './interfaces';
 export default class Incidents
     extends Resource<admin>
     implements PaginationResource<Incident>

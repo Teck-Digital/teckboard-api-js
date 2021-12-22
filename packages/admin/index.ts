@@ -54,3 +54,8 @@ export default class admin implements ApiInterface {
         return admin._instance;
     }
 }
+export * from './resources/auth';
+export * from './resources/contents';
+export * from './resources/companies';
+export * from './resources/stats';
+export * from './resources/incidents';

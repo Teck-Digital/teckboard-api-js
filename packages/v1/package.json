@@ -15,6 +15,7 @@
         "axios": "^0.24.0"
     },
     "scripts": {
-        "lint": "yarn eslint src/**"
+        "lint": "yarn eslint src/**",
+        "prepare": "tsc"
     }
 }
