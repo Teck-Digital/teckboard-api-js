@@ -1,0 +1,20 @@
+{
+    "name": "@teckboard-api/v1",
+    "version": "1.0.0",
+    "description": "The teckboard api",
+    "main": "dist/index.js",
+    "files": [
+        "dist/**/*"
+    ],
+    "repository": "https://github.com/teckdigital/teckboard-api-js",
+    "author": "ItsZiroy <yannihahn@t-online.de>",
+    "license": "MIT",
+    "private": false,
+    "devDependencies": {},
+    "dependencies": {
+        "@teckboard-api/core": "^1.0.0"
+    },
+    "scripts": {
+        "lint": "yarn eslint src/**"
+    }
+}

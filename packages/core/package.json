@@ -1,0 +1,22 @@
+{
+    "name": "@teckboard-api/core",
+    "version": "1.0.0",
+    "description": "The teckboard api",
+    "main": "dist/index.js",
+    "files": [
+        "dist/**/*"
+    ],
+    "repository": "https://github.com/teckdigital/teckboard-api-js",
+    "author": "ItsZiroy <yannihahn@t-online.de>",
+    "license": "MIT",
+    "private": false,
+    "dependencies": {
+        "axios": "^0.24.0",
+        "global": "^4.4.0",
+        "localforage": "^1.10.0",
+        "moment": "^2.29.1"
+    },
+    "scripts": {
+        "lint": "yarn eslint src/**"
+    }
+}
