@@ -9,13 +9,19 @@
     "private": false,
     "dependencies": {
         "@teckboard-api/core": "^1.2.0",
-        "axios": "^0.24.0"
+        "axios": "^0.24.0",
+        "lodash": "^4.17.21"
     },
     "scripts": {
         "lint": "yarn eslint src/**",
-        "build": "tsc && cp package.json dist/"
+        "build": "tsc && cp package.json dist/",
+        "testrelease": "yarn build && cd dist && npm pack",
+        "release": "cd dist && npm publish",
+        "preversion": "yarn build",
+        "postversion": "yarn release"
     },
     "devDependencies": {
+        "@types/lodash": "^4.14.178",
         "@types/quill": "^2.0.9"
     }
 }

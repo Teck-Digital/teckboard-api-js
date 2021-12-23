@@ -10,7 +10,7 @@ export interface V1Config {
     axiosConfig: AxiosRequestConfig;
 }
 export default class v1 implements ApiInterface {
-    private endpoint!: string;
+    private _endpoint!: string;
 
     public http!: AxiosInstance;
 
@@ -20,15 +20,19 @@ export default class v1 implements ApiInterface {
 
     private static _instance: v1;
 
+    public get endpoint(): string {
+        return this._endpoint;
+    }
+
     constructor(config: V1Config) {
-        this.endpoint = config.endpoint;
+        this._endpoint = config.endpoint;
         if (config.cacheEnabled) {
             Cache.setup(this.http);
         }
 
         this.http = axios.create({
             ...config.axiosConfig,
-            baseURL: this.endpoint,
+            baseURL: this._endpoint,
             withCredentials: true,
         });
 
