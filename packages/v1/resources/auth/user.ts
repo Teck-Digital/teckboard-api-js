@@ -1,7 +1,8 @@
 import JsonResponse from '../../endpoint/JsonResponse';
-import v1 from '../..';
+import v1 from '../../index';
 import Resource from '@teckboard-api/core/resource';
 import AuthUser from './interfaces/AuthUser';
+
 export default class User extends Resource<v1> {
     private uri = '/user';
 
