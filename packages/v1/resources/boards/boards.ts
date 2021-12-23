@@ -16,7 +16,7 @@ export default class Boards
         return this.uri;
     }
 
-    get = async (id: string): Promise<Board> => {
+    get = async (id: string): Promise<BoardModel> => {
         const response = await this.api.http.get<JsonResponse<Board>>(
             this.uri + '/' + id,
         );
