@@ -2,10 +2,7 @@
     "name": "@teckboard-api/v1",
     "version": "1.1.1",
     "description": "The teckboard api",
-    "main": "dist/index.js",
-    "files": [
-        "dist/**/*"
-    ],
+    "main": "index.js",
     "repository": "https://github.com/teck-digital/teckboard-api-js",
     "author": "ItsZiroy <yannihahn@t-online.de>",
     "license": "MIT",
@@ -16,6 +13,10 @@
     },
     "scripts": {
         "lint": "yarn eslint src/**",
-        "prepare": "tsc"
+        "prepublishOnly": "cp package.json dist/ && tsc",
+        "publish": "npm publish ./dist"
+    },
+    "devDependencies": {
+        "@types/quill": "^2.0.9"
     }
 }
