@@ -1,19 +1,18 @@
-import Icon from '../interfaces/Icon';
-
-import { Board as IBoard, BoardUser, Channel } from '../resources/boards';
-import { BoardChatSettings } from '../resources/boards/interfaces/Board';
-import Content from './Content';
-import v1 from '../index';
 import Resource from '../endpoint/JsonResponse';
+import PaginationResponse from '../endpoint/pagination/PaginationResponse';
+import v1 from '../index';
+import Icon from '../interfaces/Icon';
+import { Board as IBoard, BoardUser, Channel } from '../resources/boards';
+import Announcement from '../resources/boards/interfaces/Announcement';
+import { BoardChatSettings } from '../resources/boards/interfaces/Board';
 import ShardRole from '../resources/boards/interfaces/ShardRole';
-import IContent from './Content';
-import { differenceWith, fromPairs, isEqual, pick } from 'lodash';
-import { AxiosResponse } from 'axios';
+import { default as Content, default as IContent } from './Content';
+import Model from './default/ResourceModel';
 
 /**
  * Implementation example for V2
  */
-export default class Board implements IBoard {
+export default class Board extends Model<Board, IBoard> {
     id!: string;
     name!: string;
     color_scheme!: string;
@@ -32,45 +31,47 @@ export default class Board implements IBoard {
     created_at!: string;
     updated_at!: string;
 
-    private readonly original: IBoard;
-
-    private readonly _endpoint: string;
-
-    constructor(board: IBoard, private readonly _api: v1) {
-        Object.assign(this, board);
-        this.original = board;
-        this._endpoint = this._api.boards.baseUri + '/' + this.id;
+    constructor(resource: IBoard, _api: v1) {
+        super(resource, _api, {
+            endpoints: _api.boards.baseUri + '/' + resource.id,
+        });
     }
 
-    public async save(): Promise<AxiosResponse<Resource<IBoard>>> {
-        const oldEntries = Object.entries(this.original);
-        const newBoard = pick(this, Object.keys(this.original));
-        const newEntries = Object.entries(newBoard);
-        const diff = differenceWith(newEntries, oldEntries, isEqual);
-        const diffBoard = fromPairs(diff);
-        return this._api.http.patch<Resource<IBoard>>(
-            this._endpoint,
-            diffBoard,
-        );
+    public static collection(boards: IBoard[], _api: v1): Board[] {
+        return boards.map((b) => new Board(b, _api));
     }
+
     public async getContents(): Promise<Content[]> {
         const response = await this._api.http.get<Resource<IContent[]>>(
-            this._endpoint + '/contents',
+            this._endpoints.get + '/contents',
         );
         return Content.collection(response.data.data, this._api);
     }
 
     getUsers = async (): Promise<BoardUser[]> => {
         const response = await this._api.http.get<Resource<BoardUser[]>>(
-            this._endpoint + '/users',
+            this._endpoints.get + '/users',
         );
         return response.data.data;
     };
 
     getInvitations = async (): Promise<BoardUser[]> => {
         const response = await this._api.http.get<Resource<BoardUser[]>>(
-            this._endpoint + '/users',
+            this._endpoints.get + '/users',
         );
         return response.data.data;
+    };
+
+    getAnnouncements = async (
+        chunk = 1,
+    ): Promise<PaginationResponse<Announcement[]>> => {
+        const response = await this._api.http.get<
+            PaginationResponse<Announcement[]>
+        >(this._endpoints.get + '/announcements', {
+            params: {
+                page: chunk,
+            },
+        });
+        return response.data;
     };
 }

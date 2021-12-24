@@ -2,11 +2,15 @@ import v1 from '../index';
 import IContent from '../resources/contents/interfaces/Content';
 import Item from '../resources/contents/interfaces/Item';
 import BoardModel from './Board';
+import ResourceModel from './default/ResourceModel';
 
 /**
  * Implementation example for V2
  */
-export default class Content implements IContent {
+export default class Content
+    extends ResourceModel<Content, IContent>
+    implements IContent
+{
     id!: string;
     board_id!: string;
     margin_top!: number;
@@ -20,16 +24,15 @@ export default class Content implements IContent {
     updated_at!: string;
     created_at!: string;
 
-    private readonly _endpoint: string;
-
-    constructor(content: IContent, private readonly _api: v1) {
-        Object.assign(this, content);
-        this._endpoint =
-            this._api.boards.baseUri + '/' + this.board_id + '/' + this.id;
+    constructor(content: IContent, _api: v1) {
+        super(content, _api, {
+            endpoints:
+                _api.boards.baseUri + '/' + content.board_id + '/' + content.id,
+        });
     }
 
     public static collection = (contents: IContent[], _api: v1): Content[] => {
-        return contents.map((b) => new Content(b, _api));
+        return contents.map((c) => new Content(c, _api));
     };
 
     getBoard = async (): Promise<BoardModel> => {
