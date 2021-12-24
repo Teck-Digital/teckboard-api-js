@@ -16,6 +16,7 @@
     },
     "dependencies": {},
     "scripts": {
-        "lint": "yarn eslint src/**"
+        "lint": "yarn eslint src/**",
+        "build": "lerna exec yarn build"
     }
 }
