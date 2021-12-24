@@ -16,7 +16,6 @@
         "lint": "yarn eslint src/**",
         "build": "tsc && cp package.json dist/",
         "release": "cd dist && npm publish",
-        "preversion": "yarn build",
-        "postversion": "yarn release"
+        "postversion": "yarn build && yarn release"
     }
 }
