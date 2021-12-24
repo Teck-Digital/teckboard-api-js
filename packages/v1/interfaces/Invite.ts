@@ -3,7 +3,7 @@ export default interface Invite {
     invitable_id: string;
     invitable_type: 'board' | 'company';
     token: string;
-    name: string;
+    name: string | null;
     email: null | string;
     url: string;
     expired: boolean;
