@@ -21,7 +21,7 @@ export default class User extends Resource<v1> {
     update = async (user: Partial<AuthUser>): Promise<AuthUser> => {
         const response = await this.api.http.post<JsonResponse<AuthUser>>(
             this.uri,
-            user,
+            { ...user, _method: 'patch' },
         );
         return response.data.data;
     };
