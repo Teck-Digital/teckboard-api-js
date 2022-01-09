@@ -9,5 +9,5 @@ type ObjectKeys<T> = T extends object
     : never;
 interface ObjectConstructor {
     keys<T>(o: T): ObjectKeys<T>;
-    entries(o: T): [keyof T, any];
+    entries<T>(o: T): [keyof T, any];
 }

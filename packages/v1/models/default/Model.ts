@@ -12,14 +12,20 @@ export interface Endpoints {
 }
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type ModelPairs<T> = [keyof T, any];
-export default abstract class Model<C, I> {
+export default abstract class Model<I> {
     protected readonly original: I;
+    protected readonly _api: v1 = v1.getInstance();
+    private readonly attributeKeys: ObjectKeys<I>;
 
-    constructor(resource: I, protected readonly _api: v1) {
+    constructor(resource: I) {
         Object.assign(this, resource);
         this.original = resource;
+        this.attributeKeys = Object.keys(resource);
     }
 
+    public getAttributes(): I {
+        return pick(this, this.attributeKeys) as I;
+    }
     public getDifference(): ModelPairs<I> {
         const oldEntries = Object.entries(this.original);
         const newBoard = pick(this, Object.keys(this.original));

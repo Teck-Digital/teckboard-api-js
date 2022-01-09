@@ -20,7 +20,7 @@ export default class Boards
             this.uri + '/' + id,
         );
 
-        return new BoardModel(response.data.data, this.api);
+        return new BoardModel(response.data.data);
     };
     getBySlug = async (
         companySlug: string,
@@ -30,6 +30,6 @@ export default class Boards
             this.uri + '/by-slug/' + companySlug + '/' + boardSlug,
         );
 
-        return new BoardModel(response.data.data, this.api);
+        return new BoardModel(response.data.data);
     };
 }

@@ -1,4 +1,4 @@
-import Icon from './Icon';
+import Icon from '../../../interfaces/Icon';
 
 export default interface Notification<T> {
     id: string;

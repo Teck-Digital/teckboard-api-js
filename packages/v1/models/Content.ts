@@ -8,7 +8,7 @@ import ResourceModel from './default/ResourceModel';
  * Implementation example for V2
  */
 export default class Content
-    extends ResourceModel<Content, IContent>
+    extends ResourceModel<IContent>
     implements IContent
 {
     id!: string;
@@ -24,15 +24,19 @@ export default class Content
     updated_at!: string;
     created_at!: string;
 
-    constructor(content: IContent, _api: v1) {
-        super(content, _api, {
+    constructor(content: IContent) {
+        super(content, {
             endpoints:
-                _api.boards.baseUri + '/' + content.board_id + '/' + content.id,
+                v1.getInstance().boards.baseUri +
+                '/' +
+                content.board_id +
+                '/' +
+                content.id,
         });
     }
 
-    public static collection = (contents: IContent[], _api: v1): Content[] => {
-        return contents.map((c) => new Content(c, _api));
+    public static collection = (contents: IContent[]): Content[] => {
+        return contents.map((c) => new Content(c));
     };
 
     getBoard = async (): Promise<BoardModel> => {

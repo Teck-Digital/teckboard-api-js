@@ -1,7 +1,8 @@
 import JsonResponse from '../../endpoint/JsonResponse';
 import v1 from '../../index';
 import Resource from '@teckboard-api/core/resource';
-import AuthUser from './interfaces/AuthUser';
+import IAuthUser from './interfaces/AuthUser';
+import AuthUser from '../../models/AuthUser';
 
 export default class User extends Resource<v1> {
     private uri = '/user';
@@ -11,23 +12,23 @@ export default class User extends Resource<v1> {
     }
 
     get = async (): Promise<AuthUser> => {
-        const response = await this.api.http.get<JsonResponse<AuthUser>>(
+        const response = await this.api.http.get<JsonResponse<IAuthUser>>(
             this.uri,
         );
 
-        return response.data.data;
+        return new AuthUser(response.data.data);
     };
 
     update = async (user: Partial<AuthUser>): Promise<AuthUser> => {
-        const response = await this.api.http.post<JsonResponse<AuthUser>>(
+        const response = await this.api.http.post<JsonResponse<IAuthUser>>(
             this.uri,
             { ...user, _method: 'patch' },
         );
-        return response.data.data;
+        return new AuthUser(response.data.data);
     };
 
     delete = async (): Promise<boolean> => {
-        const response = await this.api.http.delete<JsonResponse<AuthUser>>(
+        const response = await this.api.http.delete<JsonResponse<IAuthUser>>(
             this.uri,
         );
         return response.status == 200;

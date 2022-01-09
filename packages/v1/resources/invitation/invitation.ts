@@ -15,6 +15,6 @@ export default class Invitation extends Resource<v1> {
             this.uri + '/' + token,
         );
 
-        return new InvitationModel(response.data.data, this.api);
+        return new InvitationModel(response.data.data);
     };
 }

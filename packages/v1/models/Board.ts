@@ -12,7 +12,7 @@ import Model from './default/ResourceModel';
 /**
  * Implementation example for V2
  */
-export default class Board extends Model<Board, IBoard> {
+export default class Board extends Model<IBoard> implements IBoard {
     id!: string;
     name!: string;
     color_scheme!: string;
@@ -31,21 +31,21 @@ export default class Board extends Model<Board, IBoard> {
     created_at!: string;
     updated_at!: string;
 
-    constructor(resource: IBoard, _api: v1) {
-        super(resource, _api, {
-            endpoints: _api.boards.baseUri + '/' + resource.id,
+    constructor(resource: IBoard) {
+        super(resource, {
+            endpoints: v1.getInstance().boards.baseUri + '/' + resource.id,
         });
     }
 
-    public static collection(boards: IBoard[], _api: v1): Board[] {
-        return boards.map((b) => new Board(b, _api));
+    public static collection(boards: IBoard[]): Board[] {
+        return boards.map((b) => new Board(b));
     }
 
     public async getContents(): Promise<Content[]> {
         const response = await this._api.http.get<Resource<IContent[]>>(
             this._endpoints.get + '/contents',
         );
-        return Content.collection(response.data.data, this._api);
+        return Content.collection(response.data.data);
     }
 
     getUsers = async (): Promise<BoardUser[]> => {

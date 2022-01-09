@@ -1,5 +1,5 @@
 import PartialBoard from './PartialBoard';
-import Notification from '../../../interfaces/Notification';
+import Notification from '../../notifications/interfaces/Notification';
 
 interface BoardAnnouncementData {
     board: PartialBoard;

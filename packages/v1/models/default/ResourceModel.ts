@@ -1,5 +1,4 @@
 import { isEmpty } from 'lodash';
-import v1 from '../..';
 import JsonResponse from '../../endpoint/JsonResponse';
 import Model from './Model';
 
@@ -14,11 +13,11 @@ export interface Endpoints {
 }
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type ModelPairs<T> = [keyof T, any];
-export default abstract class ResourceModel<C, I> extends Model<C, I> {
+export default abstract class ResourceModel<I> extends Model<I> {
     protected readonly _endpoints: Endpoints;
 
-    constructor(resource: I, _api: v1, options: ModelOptions) {
-        super(resource, _api);
+    constructor(resource: I, options: ModelOptions) {
+        super(resource);
         const { endpoints } = options;
         this._endpoints = this._initEndpoint(endpoints);
     }

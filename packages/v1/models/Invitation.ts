@@ -8,7 +8,7 @@ import Model from './default/Model';
  * Implementation example for V2
  */
 export default class Invitation
-    extends Model<Invitation, IInvitation>
+    extends Model<IInvitation>
     implements IInvitation
 {
     id!: string;
@@ -25,9 +25,9 @@ export default class Invitation
 
     private readonly enpoint: string;
 
-    constructor(resource: IInvitation, _api: v1) {
-        super(resource, _api);
-        this.enpoint = _api.endpoint + '/invitation/' + this.token;
+    constructor(resource: IInvitation) {
+        super(resource);
+        this.enpoint = v1.getInstance().endpoint + '/invitation/' + this.token;
     }
 
     async approve(): Promise<IBoard> {
