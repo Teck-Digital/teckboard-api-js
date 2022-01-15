@@ -21,7 +21,7 @@ export default class AuthUser extends Model<IAuthUser> implements IAuthUser {
     settings!: UserSettings;
     icon?: Icon | undefined;
 
-    notifications?: Notification[];
+    notifications?: Pagination<Notification, INotification<unknown>>;
     boards?: Board[];
 
     constructor(resource: IAuthUser) {
@@ -31,7 +31,7 @@ export default class AuthUser extends Model<IAuthUser> implements IAuthUser {
     }
 
     async getBoards(): Promise<Board[]> {
-        const response = await this._api.http.get<JsonResponse<IBoard[]>>(
+        const response = await this.api.http.get<JsonResponse<IBoard[]>>(
             this._endpoints.get + '/boards',
         );
         this.boards = Board.collection(response.data.data);
@@ -40,9 +40,10 @@ export default class AuthUser extends Model<IAuthUser> implements IAuthUser {
     async getNotifications(): Promise<
         Pagination<Notification, INotification<unknown>>
     > {
-        const response = await this._api.http.get<
+        const response = await this.api.http.get<
             PaginationResponse<INotification<unknown>>
         >(this._endpoints.get + '/notifications?chunk=1');
-        return new Pagination(response.data, Notification);
+        this.notifications = new Pagination(response.data, Notification);
+        return this.notifications;
     }
 }

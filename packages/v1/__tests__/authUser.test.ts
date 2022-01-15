@@ -10,6 +10,14 @@ beforeAll(() => {
 });
 test('Auth user', async () => {
     const user = await global.__api__.user.get();
+    user.onChange((key, value) => {
+        console.log(value);
+    });
+    user.on('save', (model) => {
+        console.log(model.status);
+    });
+    user.status = user.status == 1 ? 3 : 1;
+    await user.save();
     expect(user).toBeInstanceOf(AuthUser);
     expect(user).toEqual(
         expect.objectContaining({

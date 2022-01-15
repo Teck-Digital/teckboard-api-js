@@ -31,7 +31,7 @@ export default class Invitation
     }
 
     async approve(): Promise<IBoard> {
-        const response = await this._api.http.post<JsonResponse<IBoard>>(
+        const response = await this.api.http.post<JsonResponse<IBoard>>(
             this.enpoint,
         );
 

@@ -42,21 +42,21 @@ export default class Board extends Model<IBoard> implements IBoard {
     }
 
     public async getContents(): Promise<Content[]> {
-        const response = await this._api.http.get<Resource<IContent[]>>(
+        const response = await this.api.http.get<Resource<IContent[]>>(
             this._endpoints.get + '/contents',
         );
         return Content.collection(response.data.data);
     }
 
     getUsers = async (): Promise<BoardUser[]> => {
-        const response = await this._api.http.get<Resource<BoardUser[]>>(
+        const response = await this.api.http.get<Resource<BoardUser[]>>(
             this._endpoints.get + '/users',
         );
         return response.data.data;
     };
 
     getInvitations = async (): Promise<BoardUser[]> => {
-        const response = await this._api.http.get<Resource<BoardUser[]>>(
+        const response = await this.api.http.get<Resource<BoardUser[]>>(
             this._endpoints.get + '/users',
         );
         return response.data.data;
@@ -65,7 +65,7 @@ export default class Board extends Model<IBoard> implements IBoard {
     getAnnouncements = async (
         chunk = 1,
     ): Promise<PaginationResponse<Announcement[]>> => {
-        const response = await this._api.http.get<
+        const response = await this.api.http.get<
             PaginationResponse<Announcement[]>
         >(this._endpoints.get + '/announcements', {
             params: {

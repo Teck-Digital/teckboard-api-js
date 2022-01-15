@@ -40,6 +40,6 @@ export default class Content
     };
 
     getBoard = async (): Promise<BoardModel> => {
-        return this._api.boards.get(this.board_id);
+        return this.api.boards.get(this.board_id);
     };
 }

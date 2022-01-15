@@ -28,7 +28,7 @@ export default class Notification
     constructor(notification: INotification<unknown>) {
         super(notification);
         this._endpoint =
-            this._api.user.baseUri + '/notifications/' + notification.id;
+            this.api.user.baseUri + '/notifications/' + notification.id;
     }
     public static collection = (
         notifications: INotification<unknown>[],
@@ -37,7 +37,7 @@ export default class Notification
     };
 
     markAsRead = async (): Promise<Notification> => {
-        const response = await this._api.http.post<
+        const response = await this.api.http.post<
             JsonResponse<INotification<unknown>>
         >(this._endpoint + '/mark');
 
