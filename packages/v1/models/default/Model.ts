@@ -1,5 +1,5 @@
-import EventEmitter from 'events';
 import { cloneDeep, differenceWith, fromPairs, isEqual, pick } from 'lodash';
+import EventEmitter from 'events';
 import v1 from '../..';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -17,9 +17,9 @@ export default abstract class Model<I> {
     private __values: I;
     private readonly __attributeKeys: ObjectKeys<I>;
 
-    protected readonly original: I;
+    protected original: I;
     protected readonly api: v1 = v1.getInstance();
-    protected readonly emitter: EventEmitter = new EventEmitter();
+    public readonly emitter: EventEmitter = new EventEmitter();
 
     constructor(resource: I) {
         this.original = resource;
@@ -32,8 +32,9 @@ export default abstract class Model<I> {
                 },
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 set(value: any) {
-                    (this as Model<I>).emitter.emit('change', this, key, value);
                     (this as Model<I>).__values[key as keyof I] = value;
+
+                    (this as Model<I>).emitter.emit('change', key, value, this);
                 },
             });
         });
@@ -58,7 +59,6 @@ export default abstract class Model<I> {
         const newEntries = Object.entries(this.__values);
         return differenceWith(newEntries, oldEntries, isEqual) as ModelPairs<I>;
     }
-
     public getDifferentObject(): Partial<I> {
         return fromPairs(this.getDifference()) as Partial<I>;
     }

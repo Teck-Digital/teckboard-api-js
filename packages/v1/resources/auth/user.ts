@@ -3,6 +3,8 @@ import v1 from '../../index';
 import Resource from '@teckboard-api/core/resource';
 import IAuthUser from './interfaces/AuthUser';
 import AuthUser from '../../models/AuthUser';
+import { AxiosResponse } from 'axios';
+import Icon from '../../interfaces/Icon';
 
 export default class User extends Resource<v1> {
     private uri = '/user';
@@ -19,6 +21,25 @@ export default class User extends Resource<v1> {
         return new AuthUser(response.data.data);
     };
 
+    updateModel = async (
+        diff: Partial<IAuthUser>,
+    ): Promise<AxiosResponse<JsonResponse<IAuthUser>>> => {
+        let response: AxiosResponse<JsonResponse<IAuthUser>>;
+        if (diff.icon && !(diff.icon as Icon).id) {
+            const formData = new FormData();
+            formData.append('_method', 'patch');
+
+            formData.append('icon', diff.icon as Blob);
+
+            response = await this.api.http.post(this.uri, formData);
+        } else {
+            response = await this.api.http.post<JsonResponse<IAuthUser>>(
+                this.uri,
+                { ...diff, _method: 'patch' },
+            );
+        }
+        return response;
+    };
     update = async (user: Partial<AuthUser>): Promise<AuthUser> => {
         const response = await this.api.http.post<JsonResponse<IAuthUser>>(
             this.uri,

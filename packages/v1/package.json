@@ -1,6 +1,6 @@
 {
     "name": "@teckboard-api/v1",
-    "version": "1.4.1",
+    "version": "1.4.2",
     "description": "The teckboard api",
     "main": "index.js",
     "repository": "https://github.com/teck-digital/teckboard-api-js",
@@ -16,7 +16,7 @@
         "lint": "yarn eslint src/**",
         "build": "tsc -p tsconfig.build.json && cp package.json dist/ && cp README.md dist/",
         "testrelease": "yarn build && cd dist && npm pack",
-        "release": "cd dist && npm publish",
+        "release": "cd dist && yarn publish",
         "postversion": "yarn build && yarn release",
         "test": "jest"
     },

@@ -19,17 +19,19 @@ export default class AuthUser extends Model<IAuthUser> implements IAuthUser {
     status!: number;
     verified!: boolean;
     settings!: UserSettings;
-    icon?: Icon | undefined;
+    icon?: Icon | Blob;
 
     notifications?: Pagination<Notification, INotification<unknown>>;
     boards?: Board[];
-
     constructor(resource: IAuthUser) {
         super(resource, {
-            endpoints: v1.getInstance().user.baseUri,
+            endpoints: {
+                get: v1.getInstance().user.baseUri,
+                patch: v1.getInstance().user.updateModel,
+                delete: v1.getInstance().user.baseUri,
+            },
         });
     }
-
     async getBoards(): Promise<Board[]> {
         const response = await this.api.http.get<JsonResponse<IBoard[]>>(
             this._endpoints.get + '/boards',

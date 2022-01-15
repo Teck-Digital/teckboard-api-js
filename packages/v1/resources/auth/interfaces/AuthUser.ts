@@ -23,5 +23,5 @@ export default interface AuthUser {
     status: number;
     verified: boolean;
     settings: UserSettings;
-    icon?: Icon;
+    icon?: Icon | Blob;
 }
