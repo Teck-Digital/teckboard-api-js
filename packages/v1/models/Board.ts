@@ -1,3 +1,4 @@
+import { Channel as SocketIoChannel } from 'laravel-echo/dist/channel';
 import Resource from '../endpoint/JsonResponse';
 import PaginationResponse from '../endpoint/pagination/PaginationResponse';
 import v1 from '../index';
@@ -9,6 +10,7 @@ import ShardRole from '../resources/boards/interfaces/ShardRole';
 import { default as Content, default as IContent } from './Content';
 import Model from './default/ResourceModel';
 
+const BOARD_UPDATE = 'Board.UpdateBoard';
 /**
  * Implementation example for V2
  */
@@ -31,11 +33,28 @@ export default class Board extends Model<IBoard> implements IBoard {
     created_at!: string;
     updated_at!: string;
 
+    private socketChannel: SocketIoChannel;
+
+    private channel_prefix = 'board.';
+
     constructor(resource: IBoard) {
         super(resource, {
             endpoints: v1.getInstance().boards.baseUri + '/' + resource.id,
         });
+        this.socketChannel = this.api.socket.join(
+            this.channel_prefix + resource.id,
+        );
     }
+
+    listenToUpdates = () => {
+        this.socketChannel.listen(BOARD_UPDATE, (e: { board: Board }) =>
+            this.onBoardUpdate(e.board),
+        );
+    };
+
+    private onBoardUpdate = (board: IBoard): void => {
+        this.batchUpdate(board);
+    };
 
     public static collection(boards: IBoard[]): Board[] {
         return boards.map((b) => new Board(b));

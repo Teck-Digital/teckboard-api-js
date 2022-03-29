@@ -1,4 +1,12 @@
-import { cloneDeep, differenceWith, fromPairs, isEqual, pick } from 'lodash';
+import {
+    cloneDeep,
+    difference,
+    differenceWith,
+    fromPairs,
+    isEqual,
+    merge,
+    pick,
+} from 'lodash';
 import EventEmitter from 'events';
 import v1 from '../..';
 
@@ -39,6 +47,14 @@ export default abstract class Model<I> {
             });
         });
     }
+    public batchUpdate(model: I): this {
+        console.log(model);
+        if (this.isDifferentTo(model)) {
+            merge(this, model);
+            this.emitter.emit('update', this);
+        }
+        return this;
+    }
     /**
      * @returns Reference to self to allow chaining
      * @See {@link EventEmitter.addListener}
@@ -58,6 +74,9 @@ export default abstract class Model<I> {
         const oldEntries = Object.entries(this.original);
         const newEntries = Object.entries(this.__values);
         return differenceWith(newEntries, oldEntries, isEqual) as ModelPairs<I>;
+    }
+    public isDifferentTo(model: I): boolean {
+        return !isEqual(this.__values, model);
     }
     public getDifferentObject(): Partial<I> {
         return fromPairs(this.getDifference()) as Partial<I>;

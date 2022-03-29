@@ -61,7 +61,6 @@ export default abstract class ResourceModel<I> extends Model<I> {
         }
         this.original = response.data.data;
         this.emitter.emit('save', this);
-        this.emitter.emit('update', this);
         return response;
     }
 
