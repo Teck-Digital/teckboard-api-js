@@ -6,12 +6,17 @@ import Boards from './resources/boards/boards';
 import Invitation from './resources/invitation/invitation';
 import { Notifications } from './resources/notifications';
 import { merge } from 'lodash';
+import Echo from 'laravel-echo';
+import Socketio from 'socket.io-client';
 
 export interface V1Config {
     endpoint: string;
     cacheEnabled: boolean;
     axiosConfig?: AxiosRequestConfig;
     bearerToken?: string;
+    socketEnabled?: boolean;
+    socketPort?: number;
+    socketHost?: string;
 }
 
 export default class v1 implements ApiInterface {
@@ -26,6 +31,8 @@ export default class v1 implements ApiInterface {
     public invitation!: Invitation;
 
     public notifications!: Notifications;
+
+    public socket!: Echo;
 
     private static _instance: v1;
 
@@ -57,6 +64,19 @@ export default class v1 implements ApiInterface {
             this.boards = new Boards(this);
             this.invitation = new Invitation(this);
             this.notifications = new Notifications(this);
+            if (config.socketEnabled) {
+                this.socket = new Echo({
+                    broadcaster: 'socket.io',
+                    client: Socketio,
+                    host: config.socketHost + ':' + config.socketPort,
+                    auth: {
+                        headers: {
+                            Authorization: 'Bearer ' + config.bearerToken,
+                            Accept: 'application/json',
+                        },
+                    },
+                });
+            }
             v1._instance = this;
         }
         return v1._instance;
