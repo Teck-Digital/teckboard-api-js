@@ -12,7 +12,21 @@ import Model from './default/ResourceModel';
 
 const BOARD_UPDATE = 'Board.UpdateBoard';
 /**
- * Implementation example for V2
+ * ## The Object representation for a Board.
+ * ```typescript
+ * const board = api.boards.get('000');
+ *
+ * console.log(board.name); // Gives you the name of the Board.
+ *
+ * board.name = 'ChangedName';
+ * board.settings = {
+ *     chat: {
+ *          enabled: false;
+ *     }
+ * };
+ *
+ * board.save(); // Persists changes to the server;
+ * ```
  */
 export default class Board extends Model<IBoard> implements IBoard {
     id!: string;
@@ -46,6 +60,18 @@ export default class Board extends Model<IBoard> implements IBoard {
         );
     }
 
+    /**
+     * #### Usage
+     *
+     * ```ts
+     * const board = api.boards.get('000');
+     * board.on('update', (board) => {
+     *  console.log('Board ' + board.name + ' has been updated by the backend');
+     * });
+     * // This line starts the listining process
+     * board.listenToUpdates();
+     * ```
+     */
     listenToUpdates = () => {
         this.socketChannel.listen(BOARD_UPDATE, (e: { board: Board }) =>
             this.onBoardUpdate(e.board),
@@ -67,6 +93,11 @@ export default class Board extends Model<IBoard> implements IBoard {
         return Content.collection(response.data.data);
     }
 
+    /**
+     * Queries all users for the current board
+     *
+     * @returns All users on the board
+     */
     getUsers = async (): Promise<BoardUser[]> => {
         const response = await this.api.http.get<Resource<BoardUser[]>>(
             this._endpoints.get + '/users',
