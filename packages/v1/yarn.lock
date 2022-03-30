@@ -596,7 +596,7 @@
     parchment "^1.1.2"
     quill-delta "^4.0.1"
 
-"@types/socket.io-client@^2.1.13":
+"@types/socket.io-client@^1.4.36":
   version "1.4.36"
   resolved "https://registry.npmjs.org/@types/socket.io-client/-/socket.io-client-1.4.36.tgz#e4f1ca065f84c20939e9850e70222202bd76ff3f"
   integrity sha512-ZJWjtFBeBy1kRSYpVbeGYTElf6BqPQUkXDlHHD4k/42byCN5Rh027f4yARHCink9sKAkbtGZXEAmR0ZCnc2/Ag==

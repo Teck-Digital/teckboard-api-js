@@ -1,6 +1,6 @@
 import ShardRole from './ShardRole';
-import { AuthUser } from '../../auth';
+import { IAuthUser } from '../../auth';
 
-export default interface BoardUser extends AuthUser {
+export default interface BoardUser extends IAuthUser {
     role: ShardRole;
 }

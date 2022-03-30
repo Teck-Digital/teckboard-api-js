@@ -1,10 +1,11 @@
 import JsonResponse from '../../endpoint/JsonResponse';
 import v1 from '../../index';
 import Resource from '@teckboard-api/core/resource';
-import IAuthUser from './interfaces/AuthUser';
+
 import AuthUser from '../../models/AuthUser';
 import { AxiosResponse } from 'axios';
 import Icon from '../../interfaces/Icon';
+import { IAuthUser } from './interfaces';
 
 export default class User extends Resource<v1> {
     private uri = '/user';

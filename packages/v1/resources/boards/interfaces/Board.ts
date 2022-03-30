@@ -1,5 +1,6 @@
+import { Icon } from '../../../interfaces';
 import Channel from './Channel';
-import Icon from '../../../interfaces/Icon';
+
 import ShardRole from './ShardRole';
 
 export interface BoardChatSettings {

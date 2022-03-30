@@ -1,7 +1,7 @@
 import PartialBoard from './PartialBoard';
 import Notification from '../../notifications/interfaces/Notification';
 
-interface BoardAnnouncementData {
+export interface BoardAnnouncementData {
     board: PartialBoard;
     imageable_type: 'user' | 'board' | 'company';
     imageable_id: string;

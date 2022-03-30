@@ -1,1 +1,5 @@
-export { default as AuthUser } from './AuthUser';
+export {
+    default as IAuthUser,
+    UserNotificationsSettings,
+    UserSettings,
+} from './AuthUser';

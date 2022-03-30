@@ -1,5 +1,5 @@
 import Model from './default/ResourceModel';
-import { AuthUser as IAuthUser } from '../resources/auth';
+import { IAuthUser } from '../resources/auth';
 import Icon from '../interfaces/Icon';
 import { UserSettings } from '../resources/auth/interfaces/AuthUser';
 import v1 from '..';
@@ -32,6 +32,7 @@ export default class AuthUser extends Model<IAuthUser> implements IAuthUser {
             },
         });
     }
+
     async getBoards(): Promise<Board[]> {
         const response = await this.api.http.get<JsonResponse<IBoard[]>>(
             this._endpoints.get + '/boards',

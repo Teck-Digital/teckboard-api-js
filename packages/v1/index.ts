@@ -1,13 +1,14 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
 import { Cache } from '@teckboard-api/core';
 import ApiInterface from '@teckboard-api/core/ApiInterface';
-import User from './resources/auth';
+
 import Boards from './resources/boards/boards';
 import Invitation from './resources/invitation/invitation';
 import { Notifications } from './resources/notifications';
 import { merge } from 'lodash';
 import Echo from 'laravel-echo';
 import Socketio from 'socket.io-client';
+import { UserResource } from './resources/auth';
 
 export interface V1Config {
     endpoint: string;
@@ -24,7 +25,7 @@ export default class v1 implements ApiInterface {
 
     public http!: AxiosInstance;
 
-    public user!: User;
+    public user!: UserResource;
 
     public boards!: Boards;
 
@@ -60,7 +61,7 @@ export default class v1 implements ApiInterface {
 
             this.http = axios.create(axiosConfig);
 
-            this.user = new User(this);
+            this.user = new UserResource(this);
             this.boards = new Boards(this);
             this.invitation = new Invitation(this);
             this.notifications = new Notifications(this);
